@@ -6,9 +6,11 @@ import { fetchPosts } from '../actions/postActions';
 function Posts(props) {
 
   // fetchPosts is within props
+
   useEffect(() => {
     props.fetchPosts();
-  }, [props]);
+    props.newPost && props.posts.unshift(props.newPost);
+  }, [])
 
   return (
     <div>
@@ -28,13 +30,15 @@ function Posts(props) {
 
 Posts.propTypes = {
   fetchPosts: PropTypes.func.isRequired,
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
+  newPost: PropTypes.object
 }
 
 // mapStateToProps - get the state from Redux and map it to the components props
 const mapStateToProps = (state) => ({
-  posts: state.posts.items
-})
+  posts: state.posts.items,
+  newPost: state.posts.item
+});
 
 // connects components to the Redux store
 export default connect(mapStateToProps, { fetchPosts })(Posts);

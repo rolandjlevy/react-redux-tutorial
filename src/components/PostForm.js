@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { createPost } from '../actions/postActions';
 
-function PostForm() {
+function PostForm(props) {
 
   const [formData, setFormData] = useState({});
 
@@ -10,18 +13,10 @@ function PostForm() {
       [e.target.name]:e.target.value
     });
   }
-  
-  const url = 'https://jsonplaceholder.typicode.com/posts';
 
   const onSubmit = (e) => {
     e.preventDefault();
-    fetch(url, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(formData)
-    })
-    .then(res => res.json())
-    .then(data => console.log(data));
+    props.createPost(formData);
   }
 
   return (
@@ -41,4 +36,8 @@ function PostForm() {
   );
 }
 
-export default PostForm;
+PostForm.propTypes = {
+  createPost: PropTypes.func.isRequired
+}
+
+export default connect(null, { createPost } )(PostForm);
