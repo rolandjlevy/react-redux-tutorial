@@ -1,19 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/postActions'
+import PropTypes from 'prop-types';
+import { fetchPosts } from '../actions/postActions';
 
 function Posts(props) {
 
-  // const [posts, setPosts] = useState([]);
-  
-  // const url = 'https://jsonplaceholder.typicode.com/posts';
-
-  // const getPosts = () => {
-  //   fetch(url)
-  //   .then(res => res.json())
-  //   .then(data => setPosts(data));
-  // }
-
+  // fetchPosts is within props
   useEffect(() => {
     props.fetchPosts();
   }, [props]);
@@ -34,9 +26,16 @@ function Posts(props) {
   );
 }
 
-const mapStateToProps = state => ({
+Posts.propTypes = {
+  fetchPosts: PropTypes.func.isRequired,
+  posts: PropTypes.array.isRequired
+}
+
+// mapStateToProps - get the state from Redux and map it to the components props
+const mapStateToProps = (state) => ({
   posts: state.posts.items
 })
 
+// connects components to the Redux store
 export default connect(mapStateToProps, { fetchPosts })(Posts);
 
