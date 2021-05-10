@@ -7,10 +7,14 @@ function Posts(props) {
 
   // fetchPosts is within props
 
+  // Trying to convert ComponentWillReceiveProps to hooks
+
+  // https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/
+
   useEffect(() => {
+    props.posts.unshift(props.newPost);
     props.fetchPosts();
-    props.newPost && props.posts.unshift(props.newPost);
-  }, [])
+  }, []);
 
   return (
     <div>
