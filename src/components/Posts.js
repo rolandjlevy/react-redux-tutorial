@@ -5,12 +5,7 @@ import { fetchPosts } from '../actions/postActions';
 
 function Posts(props) {
 
-  // fetchPosts is within props
-
   // Trying to convert ComponentWillReceiveProps to hooks
-
-  // https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/
-  // https://glennstovall.com/how-to-use-useeffect-and-other-hooks-in-class-components/
 
   // componentWillMount() {
   //   this.props.fetchPosts();
