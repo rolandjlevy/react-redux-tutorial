@@ -10,11 +10,25 @@ function Posts(props) {
   // Trying to convert ComponentWillReceiveProps to hooks
 
   // https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/
+  // https://glennstovall.com/how-to-use-useeffect-and-other-hooks-in-class-components/
+
+  // componentWillMount() {
+  //   this.props.fetchPosts();
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.newPost) {
+  //     this.props.posts.unshift(nextProps.newPost);
+  //   }
+  // }
 
   useEffect(() => {
-    props.posts.unshift(props.newPost);
-    props.fetchPosts();
-  }, []);
+    if (!props.loading) {
+      props.fetchPosts();
+      props.posts.unshift(props.newPost);
+      console.log('!props.loading: fetchPosts()');
+    } 
+  }, [props]);
 
   return (
     <div>
@@ -41,7 +55,8 @@ Posts.propTypes = {
 // mapStateToProps - get the state from Redux and map it to the components props
 const mapStateToProps = (state) => ({
   posts: state.posts.items,
-  newPost: state.posts.item
+  newPost: state.posts.item,
+  loading: state.posts.loading
 });
 
 // connects components to the Redux store

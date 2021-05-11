@@ -34,10 +34,12 @@ function PostForm(props) {
       </form>
     </div>
   );
+
 }
 
 PostForm.propTypes = {
   createPost: PropTypes.func.isRequired
 }
+
 
 export default connect(null, { createPost } )(PostForm);
